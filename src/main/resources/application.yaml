@@ -13,3 +13,8 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+
+  devtools:
+    livereload:
+      port: 35729
+      enabled: true
