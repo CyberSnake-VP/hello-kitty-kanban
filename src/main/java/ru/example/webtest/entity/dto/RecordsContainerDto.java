@@ -6,8 +6,8 @@ import java.util.List;
 
 public record RecordsContainerDto(
         List<Record> records,
-        int numberOfDoneRecords,
-        int numberOfActiveRecords
+        long numberOfDoneRecords,
+        long numberOfActiveRecords
 ) {
 
 }

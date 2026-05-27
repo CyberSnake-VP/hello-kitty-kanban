@@ -1,3 +1,136 @@
-.filter-container {
-    color: green;
+body {
+    margin: 0;
+    background-color: #282E33;
 }
+
+.page-wrapper {
+
+}
+
+.container {
+
+}
+
+.header-container {
+
+}
+
+.header__text h2 {
+
+}
+
+.header__statistics {
+
+}
+
+.header__statistics span {
+
+}
+
+button {
+
+}
+
+button:hover {
+
+}
+
+.button_type_close {
+
+}
+
+.button_type_close:hover {
+
+}
+
+.button_type_approve {
+
+}
+
+.button_type_approve:hover {
+
+}
+
+.filter-container {
+
+}
+
+.filter-form {
+
+}
+
+.filter-form__input {
+
+}
+
+.filter-form__input:hover {
+
+}
+
+.filter-form button {
+
+}
+
+.records-container {
+
+}
+
+.hint {
+
+}
+
+.record {
+
+}
+
+.record:nth-last-child(1) {
+
+}
+
+.record__title span {
+
+}
+
+.record__controls {
+
+}
+
+.record__controls-form {
+
+}
+
+.record__controls-form:nth-child(2) {
+
+}
+
+label:hover, input[type=radio]:hover {
+
+}
+
+.record__title {
+
+}
+
+.management-container {
+
+}
+
+.management-form {
+
+}
+
+.management-form__input {
+
+}
+
+.management-form__input:focus {
+
+}
+
+.management-form__button {
+
+}
+
+
+
+

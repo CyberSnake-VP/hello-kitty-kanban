@@ -28,8 +28,8 @@ public class RecordDao {
         return query.getResultList();
     }
 
-    public int countByStatus(RecordStatus status) {
-        return entityManager.createQuery("SELECT COUNT(r) FROM Record r WHERE r.status = :status", Integer.class)
+    public long countByStatus(RecordStatus status) {
+        return entityManager.createQuery("SELECT COUNT(r) FROM Record r WHERE r.status = :status", Long.class)
                 .setParameter("status", status)
                 .getSingleResult();
     }

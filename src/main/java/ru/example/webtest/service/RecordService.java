@@ -8,7 +8,6 @@ import ru.example.webtest.entity.Record;
 import ru.example.webtest.entity.RecordStatus;
 import ru.example.webtest.entity.dto.RecordsContainerDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,8 +18,8 @@ public class RecordService {
 
     public RecordsContainerDto findAllRecords(String filterMode) {
 
-        int numberOfDoneRecords = recordDao.countByStatus(RecordStatus.DONE);
-        int numberOfActiveRecords = recordDao.countByStatus(RecordStatus.ACTIVE);
+        long numberOfDoneRecords = recordDao.countByStatus(RecordStatus.DONE);
+        long numberOfActiveRecords = recordDao.countByStatus(RecordStatus.ACTIVE);
 
 
         List<Record> records = List.of();
