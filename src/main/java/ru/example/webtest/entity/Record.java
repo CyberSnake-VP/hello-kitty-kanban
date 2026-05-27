@@ -23,5 +23,5 @@ public class Record {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private RecordStatus status;
+    private RecordStatus status = RecordStatus.ACTIVE;
 }
