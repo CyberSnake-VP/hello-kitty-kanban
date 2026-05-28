@@ -17,6 +17,20 @@ body {
     height: 100vh;
 }
 
+.page-title {
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 26px;
+    font-family: 'Fredoka One', cursive;
+    color: #fff;
+    margin: 0;
+}
+
+.header__text h2 {
+    color: #be2978;
+    font-family: 'Fredoka One', cursive;
+}
+
 .fairy-icon {
     max-width: 30%;
     height: auto;
@@ -98,11 +112,11 @@ button:hover {
 }
 
 .button_type_approve {
-    background-color: #79C672;
+    background-color: #be2978;
 }
 
 .button_type_approve:hover {
-    background-color: #6dab67;
+    background-color: #d8a0c2;
 }
 
 .filter-container {
@@ -123,8 +137,13 @@ button:hover {
     gap: 6px;
     transition: background-color .1s ease-in-out;
 }
+.filter-form__input label {
+    font-family: 'Figtree', sans-serif;
+    color: #333;
+}
 
 .filter-form__input input[type=radio] {
+    accent-color: #be2978;
     margin: 0;
 }
 
@@ -134,7 +153,7 @@ label:hover, input[type=radio]:hover {
 
 .filter-form__input:hover {
     cursor: pointer;
-    background-color: #efeff0;
+    background-color: #a8cedc;
 }
 
 .filter-form button {
@@ -152,6 +171,11 @@ label:hover, input[type=radio]:hover {
     border-bottom: 1px solid #dedede;
     border-radius: 6px;
     min-width: 339px;
+}
+.hint span {
+    font-size: 16px;
+    font-weight: 300;
+    color: #d8a0c2
 }
 
 .record {
@@ -185,6 +209,10 @@ label:hover, input[type=radio]:hover {
     margin-left: 10px;
 }
 
+.record_title_strikethrough {
+    text-decoration: line-through;
+}
+
 
 .management-container {
     margin-top: 8px;
@@ -201,12 +229,13 @@ label:hover, input[type=radio]:hover {
     border-radius: 6px;
     font-size: 18px;
     font-weight: 300;
+    border: 2px solid #a8cedc;
+    background-color: rgb(190 41 120 / 0.05);
 }
 
 .management-form__input:focus {
     outline: none;
-    border: 1px solid #a9bed6;
-    box-shadow: 0 0 0 2px #2d81e2;
+    border: 2px solid #a9bed6;
 }
 
 .management-form__button {

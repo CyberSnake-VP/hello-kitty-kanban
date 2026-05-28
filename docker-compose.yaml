@@ -1,0 +1,29 @@
+services:
+  record-db:
+    image: postgres:15-alpine
+    container_name: postgres-record
+    environment:
+      - POSTGRES_USER=vadprog
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready -U vadprog -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - postgres-network
+
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  postgres-network:
+    name: postgres-network
+    driver: bridge

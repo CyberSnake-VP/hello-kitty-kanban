@@ -22,7 +22,7 @@ public class RecordService {
         long numberOfActiveRecords = recordDao.countByStatus(RecordStatus.ACTIVE);
 
 
-        List<Record> records = List.of();
+        List<Record> records;
 
         if(filterMode == null || filterMode.isBlank()) {
            records = recordDao.findAll();
@@ -35,11 +35,13 @@ public class RecordService {
         if(allowedFilterModes.contains(filterModeInUpperCase)) {
             records = recordDao.findAllByStatus(RecordStatus.valueOf(filterModeInUpperCase));
             return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
+        } else {
+            records = recordDao.findAll();
+            return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
         }
-
-        return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
     }
 
+    @Transactional
     public void saveRecord(String formTitle) {
         if(formTitle != null && !formTitle.isBlank()) {
             Record record = new Record();
@@ -48,10 +50,12 @@ public class RecordService {
         }
     }
 
+    @Transactional
     public void updateRecordStatus(int id, RecordStatus newStatus) {
         recordDao.updateRecordStatus(id, newStatus);
     }
 
+    @Transactional
     public void deleteRecord(int id) {
         recordDao.delete(id);
     }

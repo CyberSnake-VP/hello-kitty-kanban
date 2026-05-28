@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ToDo List</title>
+    <title>Hello Kitty's day</title>
     <link rel="stylesheet" href="/css/main-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
+    <h1 class="page-title">Hello Kitty's day</h1>
     <div class="fairy-img">
         <img src="/img/fairy.png" alt="kitty" class="fairy-icon">
     </div>
@@ -15,42 +18,55 @@
                 <h2>Hello Kitty's day </h2>
             </div>
             <div class="header__statistics">
-                <span>1 more to do, 0 done</span>
+                <!-- Thymeleaf syntax -->
+                <span>[[${numberOfActiveRecords}]] more to do, [[${numberOfDoneRecords}]] done</span>
             </div>
         </div>
 
         <div class="filter-container">
-            <form class="filter-form" action="/home" method="get">
+            <form th:with="filter=${#strings.toLowerCase(param.filter)}" class="filter-form" action="/home"
+                  method="get">
                 <div class="filter-form__input">
-                    <input type="radio" id="filter-form__status_all" name="filter" value="all">
+                    <!-- проверяем какое значение у параметра filter из url(мы поместили это в переменную filter)
+                     checked при условии становится true и кнопка становится выбранной -->
+                    <input th:checked="${filter != 'active' and filter != 'done'}" type="radio"
+                           id="filter-form__status_all" name="filter" value="all">
                     <label for="filter-form__status_all">All</label>
                 </div>
                 <div class="filter-form__input">
-                    <input type="radio" id="filter-form__status_active" name="filter" value="active">
+                    <input th:checked="${filter == 'active'}" type="radio" id="filter-form__status_active" name="filter"
+                           value="active">
                     <label for="filter-form__status_active">Active</label>
                 </div>
                 <div class="filter-form__input">
-                    <input type="radio" id="filter-form__status_done" name="filter" value="done">
+                    <input th:checked="${filter == 'done'}" type="radio" id="filter-form__status_done" name="filter"
+                           value="done">
                     <label for="filter-form__status_done">Done</label>
                 </div>
                 <button type="submit">Apply</button>
             </form>
         </div>
-
-        <div class="records-container">
-            <div class="hint">
-                <span>There are no active tasks!</span>
-                <span>There are no done tasks!</span>
-                <span>There are no tasks at all, try to add new one!</span>
+        <!-- Проверяем пустой ли у нас records из model(есть ли задачи), если нет отображаем это div(блок)-->
+        <div th:with="isRecordsEmpty=${records == null || records.isEmpty() }" class="records-container">
+            <!-- Выполняем проверку, какой filter(фильтр) выбран, и отображаем сообщение-->
+            <div th:if="${isRecordsEmpty}" th:switch="${#strings.toLowerCase(param.filter)}" class="hint">
+                <span th:case="'active'">There are no active tasks!</span>
+                <span th:case="'done'">There are no done tasks!</span>
+                <span th:case="*">There are no tasks at all, try to add new one!</span>
             </div>
-            <div class="record">
+            <!-- Если есть задачи, то отображаем их record - это поле из модели-->
+            <div th:if="${!isRecordsEmpty}" th:each="record : ${records}" class="record">
                 <div class="record__title">
-                    <span></span>
+                    <!-- берем из переменной цикла title (record.title), classappend - добавляем класс к тегу -->
+                    <span th:text="${record.title}"
+                          th:classappend="${record.status.name() == 'DONE' ? 'record_title_strikethrough' : ''}"></span>
                 </div>
                 <div class="record__controls">
-                    <form action="/make-record-done" method="post" class="record__controls-form">
-                        <input type="hidden" name="id">
-                        <input type="hidden" name="filter">
+                    <form th:if="${record.status.name() == 'ACTIVE'}" action="/make-record-done" method="post"
+                          class="record__controls-form">
+                        <!-- value значение вставляем значение в input -->
+                        <input th:value="${record.id}" type="hidden" name="id">
+                        <input th:value="${#strings.toLowerCase(param.filter)}" type="hidden" name="filter">
                         <button type="submit" class="button_type_approve">
                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -66,9 +82,9 @@
                             </svg>
                         </button>
                     </form>
-                    <form action="/delet-record" method="post" class="record__controls-form">
-                        <input type="hidden" name="id">
-                        <input type="hidden" name="filter">
+                    <form action="/delete-record" method="post" class="record__controls-form">
+                        <input th:value="${record.id}" type="hidden" name="id">
+                        <input th:value="${#strings.toLowerCase(param.filter)}" type="hidden" name="filter">
                         <button type="submit" class="button_type_close">
                             <svg width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M12.071 13.485l-2.828 2.829-1.415-1.415 2.829-2.828-2.829-2.828 1.415-1.415 2.828 2.829L14.9 7.828l.707.708.707.707-2.829 2.828 2.829 2.829-1.415 1.414-2.828-2.829z"

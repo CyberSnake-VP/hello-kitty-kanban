@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.example.webtest.entity.RecordStatus;
 import ru.example.webtest.entity.dto.RecordsContainerDto;
 import ru.example.webtest.service.RecordService;
 
@@ -33,5 +34,19 @@ public class RecordController {
     public String addRecord(@RequestParam("title") String formTitle) {
         recordService.saveRecord(formTitle);
         return "redirect:/home";
+    }
+
+    @PostMapping("/make-record-done")
+    public String makeRecordDone(@RequestParam("id") int id,
+                                @RequestParam(name = "filter", required = false) String filterMode) {
+        recordService.updateRecordStatus(id, RecordStatus.DONE);
+        return "redirect:/home" + (filterMode != null  && !filterMode.isBlank() ? "?filter=" + filterMode : "");
+    }
+
+    @PostMapping("/delete-record")
+    public String deleteRecord(@RequestParam("id") int id,
+                               @RequestParam(name = "filter", required = false) String filterMode) {
+        recordService.deleteRecord(id);
+        return "redirect:/home" + (filterMode != null  && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 }
