@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.example.webtest.entity.dto.RecordsContainerDto;
 import ru.example.webtest.service.RecordService;
@@ -26,5 +27,11 @@ public class RecordController {
         model.addAttribute("numberOfDoneRecords", container.numberOfDoneRecords());
         model.addAttribute("numberOfActiveRecords", container.numberOfActiveRecords());
         return "main-page";
+    }
+
+    @PostMapping("/add-record")
+    public String addRecord(@RequestParam("title") String formTitle) {
+        recordService.saveRecord(formTitle);
+        return "redirect:/home";
     }
 }

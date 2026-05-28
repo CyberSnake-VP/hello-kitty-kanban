@@ -40,10 +40,10 @@ public class RecordService {
         return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
     }
 
-    public void saveRecord(String title) {
-        if(title != null && !title.isBlank()) {
+    public void saveRecord(String formTitle) {
+        if(formTitle != null && !formTitle.isBlank()) {
             Record record = new Record();
-            record.setTitle(title);
+            record.setTitle(formTitle);
             recordDao.save(record);
         }
     }
