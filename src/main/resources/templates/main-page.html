@@ -5,12 +5,33 @@
     <link rel="stylesheet" href="/css/main-page.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <script>
+        // читаем сохраненный режим state
+        const isNinja = localStorage.getItem('ninjaMode') === 'true';
+
+        // сохраняем для JS в глобальном объекте, поле к window мы создаем сами
+        window.__initialMode = isNinja;
+
+        if (isNinja) {
+            // меняем HTML (видно сразу)
+            document.documentElement.classList.add('ninja-init');
+            document.documentElement.style.setProperty('--bg-color', '#2c2c2c');
+            document.documentElement.style.setProperty('--bg-color-container', '#3a3a3a');
+        }
+    </script>
+    <style>
+        html.ninja-init .fairy-icon {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
 <div class="page-wrapper">
     <h1 class="page-title">Hello Kitty's day</h1>
     <div class="fairy-img">
-        <img src="/img/fairy.png" alt="kitty" class="fairy-icon">
+        <img src="/img/fairy.png"
+             alt="kitty" id="magicIcon"
+             class="fairy-icon">
     </div>
     <div class="container">
         <div class="header-container">
@@ -29,25 +50,32 @@
                 <div class="filter-form__input">
                     <!-- проверяем какое значение у параметра filter из url(мы поместили это в переменную filter)
                      checked при условии становится true и кнопка становится выбранной -->
-                    <input th:checked="${filter != 'active' and filter != 'done'}" type="radio"
-                           id="filter-form__status_all" name="filter" value="all">
-                    <label for="filter-form__status_all">All</label>
+                    <label for="filter-form__status_all">
+                        <input th:checked="${filter != 'active' and filter != 'done'}" type="radio"
+                               id="filter-form__status_all" name="filter" value="all">
+                        <span>All</span>
+                    </label>
                 </div>
                 <div class="filter-form__input">
-                    <input th:checked="${filter == 'active'}" type="radio" id="filter-form__status_active" name="filter"
-                           value="active">
-                    <label for="filter-form__status_active">Active</label>
+                    <label for="filter-form__status_active">
+                        <input th:checked="${filter == 'active'}" type="radio" id="filter-form__status_active"
+                               name="filter"
+                               value="active">
+                        <span>Active</span>
+                    </label>
                 </div>
                 <div class="filter-form__input">
-                    <input th:checked="${filter == 'done'}" type="radio" id="filter-form__status_done" name="filter"
-                           value="done">
-                    <label for="filter-form__status_done">Done</label>
+                    <label for="filter-form__status_done">
+                        <input th:checked="${filter == 'done'}" type="radio" id="filter-form__status_done" name="filter"
+                               value="done">
+                        <span>Done</span>
+                    </label>
                 </div>
                 <button type="submit">Apply</button>
             </form>
         </div>
         <!-- Проверяем пустой ли у нас records из model(есть ли задачи), если нет отображаем это div(блок)-->
-        <div th:with="isRecordsEmpty=${records == null || records.isEmpty() }" class="records-container">
+        <div th:with="isRecordsEmpty=${records == null || records.isEmpty() }" class="record-container">
             <!-- Выполняем проверку, какой filter(фильтр) выбран, и отображаем сообщение-->
             <div th:if="${isRecordsEmpty}" th:switch="${#strings.toLowerCase(param.filter)}" class="hint">
                 <span th:case="'active'">There are no active tasks!</span>
@@ -104,5 +132,7 @@
         </div>
     </div>
 </div>
+
+<script th:src="@{/js/magic.js}"></script>
 </body>
 </html>
