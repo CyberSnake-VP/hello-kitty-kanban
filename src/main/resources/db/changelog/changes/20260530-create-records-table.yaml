@@ -1,0 +1,32 @@
+# Таблица задач records
+databaseChangeLog:
+  - changeSet:
+      id: 20260530-001
+      author: VadimPimenov
+      changes:
+        - createTable:
+            tableName: records
+            remarks: "Таблица задач"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  remarks: "ID задачи Первичный ключ"
+              - column:
+                  name: status
+                  type: status_type
+                  defaultValue: "ACTIVE"
+                  constraints:
+                    nullable: false
+                  remarks: "Статус задачи"
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                  remarks: "Название задачи"
+

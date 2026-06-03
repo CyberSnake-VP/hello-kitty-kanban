@@ -1,26 +1,54 @@
 services:
+  app:
+    build: .
+    container_name: kitty-app
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - app_data:/tmp
+    networks:
+      - postgres-network
+    depends_on:
+      record-db:
+        condition: service_healthy
+
+
+
   record-db:
     image: postgres:15-alpine
     container_name: postgres-record
     environment:
-      - POSTGRES_USER=vadprog
-      - POSTGRES_PASSWORD=12345
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready -U vadprog -d postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
     networks:
       - postgres-network
-
+    restart: unless-stopped  # авто-перезапуск
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   postgres_data:
+    driver: local
+  app_data:
     driver: local
 
 networks:

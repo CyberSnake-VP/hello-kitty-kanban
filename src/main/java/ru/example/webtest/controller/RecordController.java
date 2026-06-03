@@ -32,9 +32,10 @@ public class RecordController {
     }
 
     @PostMapping("/add-record")
-    public String addRecord(@RequestParam("title") String formTitle) {
+    public String addRecord(@RequestParam("title") String formTitle,
+                            @RequestParam(name = "filter", required = false, defaultValue = "all") String filterMode) {
         recordService.saveRecord(formTitle);
-        return "redirect:/home";
+        return "redirect:/home" +(filterMode != null && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 
     @PostMapping("/make-record-done")

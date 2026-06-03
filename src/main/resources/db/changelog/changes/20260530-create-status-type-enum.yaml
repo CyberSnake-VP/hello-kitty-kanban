@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260530-002
+      author: VadimPimenov
+      comment: "Типы статусов задач"
+      changes:
+        - sql:
+            sql: |
+              CREATE TYPE status_type 
+              AS ENUM ('ACTIVE', 'DONE');

@@ -388,6 +388,13 @@ body.ninja-mode .record-container::-webkit-scrollbar-thumb:hover {
 }
 
 
+body.ninja-mode .record_title_strikethrough {
+    text-decoration-color: #eb2323;
+    text-decoration-style: solid;
+    text-decoration-thickness: 2px;
+}
+
+
 
 
 

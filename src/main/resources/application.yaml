@@ -18,3 +18,7 @@ spring:
     livereload:
       port: 35729
       enabled: true
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.yaml
+    enabled: true
