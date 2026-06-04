@@ -12,7 +12,7 @@ public class GlobalExceptionHandler implements ErrorController {
 
     @RequestMapping("/error")
     public String getErrorPage() {
-        return "error-page";
+        return "/public/error/error-page";
     }
 
     @ExceptionHandler(Throwable.class)

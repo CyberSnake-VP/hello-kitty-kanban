@@ -1,6 +1,5 @@
 package ru.example.webtest.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,5 +49,14 @@ public class RecordController {
                                @RequestParam(name = "filter", required = false) String filterMode) {
         recordService.deleteRecord(id);
         return "redirect:/home" + (filterMode != null  && !filterMode.isBlank() ? "?filter=" + filterMode : "");
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "public/authorization/login-page";
+    }
+    @GetMapping("/registration")
+    public String registration() {
+        return "public/authorization/registration-page";
     }
 }
