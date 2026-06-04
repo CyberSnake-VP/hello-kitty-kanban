@@ -45,7 +45,7 @@
         </div>
 
         <div class="filter-container">
-            <form th:with="filter=${#strings.toLowerCase(param.filter)}" class="filter-form" action="/home"
+            <form th:with="filter=${#strings.toLowerCase(param.filter)}" class="filter-form" action="/account"
                   method="get">
                 <div class="filter-form__input">
                     <!-- проверяем какое значение у параметра filter из url(мы поместили это в переменную filter)
@@ -90,7 +90,7 @@
                           th:classappend="${record.status.name() == 'DONE' ? 'record_title_strikethrough' : ''}"></span>
                 </div>
                 <div class="record__controls">
-                    <form th:if="${record.status.name() == 'ACTIVE'}" action="/make-record-done" method="post"
+                    <form th:if="${record.status.name() == 'ACTIVE'}" action="account/make-record-done" method="post"
                           class="record__controls-form">
                         <!-- value значение вставляем значение в input -->
                         <input th:value="${record.id}" type="hidden" name="id">
@@ -110,7 +110,7 @@
                             </svg>
                         </button>
                     </form>
-                    <form action="/delete-record" method="post" class="record__controls-form">
+                    <form action="account/delete-record" method="post" class="record__controls-form">
                         <input th:value="${record.id}" type="hidden" name="id">
                         <input th:value="${#strings.toLowerCase(param.filter)}" type="hidden" name="filter">
                         <button type="submit" class="button_type_close">
@@ -125,7 +125,7 @@
         </div>
 
         <div class="management-container">
-            <form action="/add-record" method="post" class="management-form">
+            <form action="account/add-record" method="post" class="management-form">
                 <input th:value="${#strings.toLowerCase(param.filter)}" type="hidden" name="filter">
                 <input type="text" name="title" placeholder="What needs to be done..." class="management-form__input">
                 <button type="submit" class="management-form__button">Add Record</button>
