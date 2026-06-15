@@ -8,19 +8,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.example.webtest.entity.RecordStatus;
+import ru.example.webtest.entity.User;
 import ru.example.webtest.entity.dto.RecordsContainerDto;
 import ru.example.webtest.service.RecordService;
+import ru.example.webtest.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/account")
 public class PrivateAccountController {
+    private final UserService userService;
     private final RecordService recordService;
+
 
     @GetMapping
     public String getMainPage(Model model,
                               @RequestParam(name = "filter", required = false) String filterMode) {
+        User user = userService.getCurrntUser();
         RecordsContainerDto container = recordService.findAllRecords(filterMode);
+        model.addAttribute("userName", user.getName());
         model.addAttribute("records", container.records());
         model.addAttribute("numberOfDoneRecords", container.numberOfDoneRecords());
         model.addAttribute("numberOfActiveRecords", container.numberOfActiveRecords());
@@ -46,14 +52,5 @@ public class PrivateAccountController {
                                @RequestParam(name = "filter", required = false) String filterMode) {
         recordService.deleteRecord(id);
         return "redirect:/account" + (filterMode != null  && !filterMode.isBlank() ? "?filter=" + filterMode : "");
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "public/authorization/login-page";
-    }
-    @GetMapping("/registration")
-    public String registration() {
-        return "public/authorization/registration-page";
     }
 }

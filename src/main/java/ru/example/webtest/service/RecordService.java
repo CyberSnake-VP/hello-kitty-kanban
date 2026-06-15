@@ -3,7 +3,8 @@ package ru.example.webtest.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.example.webtest.dao.RecordDao;
+import ru.example.webtest.entity.User;
+import ru.example.webtest.repository.dao.RecordDao;
 import ru.example.webtest.entity.Record;
 import ru.example.webtest.entity.RecordStatus;
 import ru.example.webtest.entity.dto.RecordsContainerDto;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecordService {
     private final RecordDao recordDao;
+    private final UserService userService;
 
     public RecordsContainerDto findAllRecords(String filterMode) {
 
@@ -44,7 +46,9 @@ public class RecordService {
     @Transactional
     public void saveRecord(String formTitle) {
         if(formTitle != null && !formTitle.isBlank()) {
+            User user = userService.getCurrntUser();
             Record record = new Record();
+            record.setUser(user);
             record.setTitle(formTitle);
             recordDao.save(record);
         }

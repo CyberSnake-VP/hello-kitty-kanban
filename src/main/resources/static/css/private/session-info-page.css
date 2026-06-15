@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    background-color: #282E33;
+    font-family: sans-serif;
+}
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 32px 32px;
+    border-radius: 20px;
+    background-color: #fff;
+    min-width: 550px;
+}
+
+.header-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #7ab6c1;
+    border-radius: 20px;
+}
+.info-container-user p span {
+    font-family: 'Nata Sans', sans-serif;
+    color: #282e33;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info-container-session p span {
+    font-family: 'Nata Sans', sans-serif;
+    color: #282e33;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.header-container__title {
+    font-family: 'Nata Sans', sans-serif;
+}
+
+.info-container-session__title {
+    font-family: 'Nata Sans', sans-serif;
+}
+
+.info-container-user__title {
+    font-family: 'Nata Sans', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #a8cedc;
+    border-radius: 20px;
+}
+.footer-container-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer-container-link a{
+    font-family: 'Nata Sans', sans-serif;
+    color: #282e33;
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+}

@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260607-003
+      author: Vadim
+      changes:
+        - createTable:
+            tableName: users
+            remarks: "Таблица пользователей"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  remarks: "Primary key id пользователя"
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                  remarks: "Имя пользователя"
+              - column:
+                  name: email
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: "Email пользователя"
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                  remarks: "Пароль пользователя"
+              - column:
+                  name: role
+                  type: role_type
+                  constraints:
+                    nullable: false
+                  remarks: "Роль пользователя"
+

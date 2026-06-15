@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hello Kitty's day</title>
     <link rel="stylesheet" href="/css/private/account-page.css">
+    <link rel="stylesheet" href="/css/fragment/header-fragment.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}" sizes="48x48">
     <script>
         // читаем сохраненный режим state
         const isNinja = localStorage.getItem('ninjaMode') === 'true';
@@ -26,7 +28,12 @@
     </style>
 </head>
 <body>
+<!-- вставляем фрагмент, путь к нему и из модели в функцию фрагмента будут подставлены значения-->
+<div th:replace="~{fragments/header-fragment.html :: header-fragment (userName=${userName})}"></div>
 <div class="page-wrapper">
+<!--    <div class="container-profile">-->
+<!--        <a href="/session-info" class="container-profile__link">Profile</a>-->
+<!--    </div>-->
     <h1 class="page-title">Hello Kitty's day</h1>
     <div class="fairy-img">
         <img src="/img/fairy.png"

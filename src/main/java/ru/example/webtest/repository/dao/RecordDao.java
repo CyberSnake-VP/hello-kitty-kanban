@@ -1,4 +1,4 @@
-package ru.example.webtest.dao;
+package ru.example.webtest.repository.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

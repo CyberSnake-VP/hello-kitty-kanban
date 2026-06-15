@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260615-006
+      author: VadimPimenov
+      comment: "Удаляем внешний ключ, т.к. каскад будет через users"
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: records
+            constraintName: fk_records_user_id

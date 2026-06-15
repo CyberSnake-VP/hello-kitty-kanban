@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260615-005
+      author: VadimPimenov
+      comment: "Добавление внешнего user_id"
+      changes:
+        - addColumn:
+            tableName: records
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_records_user_id
+            baseTableName: records
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Session Info</title>
+    <link rel="stylesheet" href="/css/private/session-info-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nata+Sans:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="header-container">
+            <h1 class="header-container__title">Личный кабинет</h1>
+        </div>
+        <div class="info-container">
+            <h3 class="info-container-user__title">Информация о пользователе:</h3>
+            <div class="info-container-user">
+                <p>
+                    Ваш логин:
+                    <span th:text="${username}"></span>
+                </p>
+                <p>
+                    Ваш уровень авторизации:
+                    <span th:text="${roles}"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="info-container">
+            <h3 class="info-container-session__title">Информация о сессии:</h3>
+            <div class="info-container-session">
+                <p>
+                    Session ID:
+                    <span th:text="${sessionId}"></span>
+                </p>
+                <p>
+                    Время создания:
+                    <span th:text="${#dates.format(sessionCreated, 'dd.MM.yyyy HH:mm:ss')}"></span>
+                </p>
+            </div>
+            <div class="footer-container">
+                <div class="footer-container-link">
+                    <a href="/account">Главная</a>
+                    <a href="/logout">Выход</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

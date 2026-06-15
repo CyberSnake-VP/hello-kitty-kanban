@@ -3,3 +3,11 @@ databaseChangeLog:
       file: db/changelog/changes/20260530-create-status-type-enum.yaml
   - include:
       file: db/changelog/changes/20260530-create-records-table.yaml
+  - include:
+      file: db/changelog/changes/20260507-create-role-enum-type.yaml
+  - include:
+      file: db/changelog/changes/20260607-create-user-table.yaml
+  - include:
+      file: db/changelog/changes/20260615-add-userid-in-records-table.yaml
+  - include:
+      file: db/changelog/changes/20260615-delete-cascade-to-records.yaml

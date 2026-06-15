@@ -22,3 +22,9 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/changelog-master.yaml
     enabled: true
+
+server:
+  servlet:
+    session:
+      timeout: 30m
+

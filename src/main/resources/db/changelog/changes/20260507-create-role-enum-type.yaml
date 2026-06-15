@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260607-004
+      author: VadimPimenov
+      comment: "Создание enum-типа UserRole"
+      changes:
+        - sql:
+            sql: |
+              CREATE TYPE role_type AS ENUM ('USER', 'ADMIN');

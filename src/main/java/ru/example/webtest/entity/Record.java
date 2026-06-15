@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcType;
-import org.hibernate.dialect.type.PostgreSQLArrayJdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 @Getter
@@ -28,4 +27,8 @@ public class Record {
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class) // <-- Говорим Hibernate, как маппить
     private RecordStatus status = RecordStatus.ACTIVE;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
