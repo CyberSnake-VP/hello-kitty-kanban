@@ -19,33 +19,37 @@ public class RecordService {
     private final UserService userService;
 
     public RecordsContainerDto findAllRecords(String filterMode) {
+        User user = userService.getCurrntUser();
+        List<Record> records = user.getRecords();
 
-        long numberOfDoneRecords = recordDao.countByStatus(RecordStatus.DONE);
-        long numberOfActiveRecords = recordDao.countByStatus(RecordStatus.ACTIVE);
+        long numberOfDoneRecords = records.stream()
+                .filter(record -> record.getStatus() == RecordStatus.DONE)
+                .count();
 
+        long numberOfActiveRecords = records.stream()
+                .filter(record -> record.getStatus() == RecordStatus.ACTIVE)
+                .count();
 
-        List<Record> records;
-
-        if(filterMode == null || filterMode.isBlank()) {
-           records = recordDao.findAll();
-            return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
+        if (filterMode == null || filterMode.isBlank()) {
+            return new RecordsContainerDto(user.getName(), records, numberOfDoneRecords, numberOfActiveRecords);
         }
 
         String filterModeInUpperCase = filterMode.toUpperCase();
         List<String> allowedFilterModes = List.of("DONE", "ACTIVE");
 
-        if(allowedFilterModes.contains(filterModeInUpperCase)) {
-            records = recordDao.findAllByStatus(RecordStatus.valueOf(filterModeInUpperCase));
-            return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
+        if (allowedFilterModes.contains(filterModeInUpperCase)) {
+            List<Record> filterRecords = records.stream()
+                    .filter(record -> record.getStatus().name().equals(filterModeInUpperCase))
+                    .toList();
+            return new RecordsContainerDto(user.getName(), filterRecords, numberOfDoneRecords, numberOfActiveRecords);
         } else {
-            records = recordDao.findAll();
-            return new RecordsContainerDto(records, numberOfDoneRecords, numberOfActiveRecords);
+            return new RecordsContainerDto(user.getName(), records, numberOfDoneRecords, numberOfActiveRecords);
         }
     }
 
     @Transactional
     public void saveRecord(String formTitle) {
-        if(formTitle != null && !formTitle.isBlank()) {
+        if (formTitle != null && !formTitle.isBlank()) {
             User user = userService.getCurrntUser();
             Record record = new Record();
             record.setUser(user);
