@@ -9,6 +9,7 @@ import ru.example.webtest.entity.Record;
 import ru.example.webtest.entity.RecordStatus;
 import ru.example.webtest.entity.dto.RecordsContainerDto;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -20,7 +21,9 @@ public class RecordService {
 
     public RecordsContainerDto findAllRecords(String filterMode) {
         User user = userService.getCurrntUser();
-        List<Record> records = user.getRecords();
+        List<Record> records = user.getRecords().stream()
+                .sorted(Comparator.comparing(Record::getId))
+                .toList();
 
         long numberOfDoneRecords = records.stream()
                 .filter(record -> record.getStatus() == RecordStatus.DONE)

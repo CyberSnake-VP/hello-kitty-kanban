@@ -4,7 +4,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public enum UserRole {
     ADMIN,
-    USER;
+    USER,
+    SUPER_ADMIN;
 
     // Добавили метод для получения префикса ROLE_
     public SimpleGrantedAuthority toAuthority() {

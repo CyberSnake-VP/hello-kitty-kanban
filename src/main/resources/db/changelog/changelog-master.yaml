@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/changes/20260615-add-userid-in-records-table.yaml
   - include:
       file: db/changelog/changes/20260615-delete-cascade-to-records.yaml
+  - include:
+      file: db/changelog/changes/20261606-add-role-superAdmin-in-role-type.yaml

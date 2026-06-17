@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261607-007
+      author: VadimPimenov
+      comment: "Добавление SUPER_ADMIN в enum role_type"
+      changes:
+        - sql:
+            sql: |
+              ALTER TYPE role_type ADD VALUE 'SUPER_ADMIN'
