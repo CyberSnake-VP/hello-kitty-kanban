@@ -25,32 +25,39 @@ public class PrivateAdminController {
     @GetMapping
     public String getManagementPage(Model model) {
         User user = userService.getCurrntUser();
+
         model.addAttribute("userName", user.getName());
-        if(user.isSuperAdmin()) {
-            List<User> candidateToDelete = userService.findAllByRoleIn(Arrays.asList(UserRole.USER,  UserRole.ADMIN));
+        if (user.isSuperAdmin()) {
+            List<User> candidateToDelete = userService.findAllByRoleIn(Arrays.asList(UserRole.USER, UserRole.ADMIN));
+            List<User> candidateToUpgrade = candidateToDelete.stream()
+                    .filter(User::isSimpleUser)
+                    .toList();
+
             model.addAttribute("candidateToDelete", candidateToDelete);
+            model.addAttribute("candidateToUpgrade", candidateToUpgrade);
         } else {
             List<User> candidateToDelete = userService.findAllByRoleIn(Collections.singleton(UserRole.USER));
             model.addAttribute("candidateToDelete", candidateToDelete);
         }
+
         return "private/admin/management-page";
     }
 
     @PostMapping("delete-user")
     public String deleteUser(@RequestParam long id) {
         Optional<User> toBeDeletedOptional = userService.findById(id);
-        if(toBeDeletedOptional.isEmpty()) {
+        if (toBeDeletedOptional.isEmpty()) {
             return "redirect:/admin";
         }
         User userToBeDeleted = toBeDeletedOptional.get();
         User currentUser = userService.getCurrntUser();
 
         // проверка на удаление, нельзя удалить супер админа
-        if(userToBeDeleted.isSuperAdmin()) {
+        if (userToBeDeleted.isSuperAdmin()) {
             return "redirect:/admin";
         }
         // удаление админа может только супер админ
-        if(userToBeDeleted.isAdmin() && !currentUser.isSuperAdmin()) {
+        if (userToBeDeleted.isAdmin() && !currentUser.isSuperAdmin()) {
             return "redirect:/admin";
         }
 

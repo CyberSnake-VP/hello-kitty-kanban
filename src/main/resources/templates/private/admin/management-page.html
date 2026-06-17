@@ -46,16 +46,16 @@
                 <h2>Upgrade to Admin</h2>
             </div>
         </div>
-        <div class="form-container">
+        <div th:with="isCandidateToUgradeEmpty=${candidateToUpgrade == null or candidateToUpgrade.isEmpty()}" class="form-container">
             <form action="/super-admin/make-user-admin" method="post" class="form-container__form">
                 <div class="form-container__input-wrapper">
                     <select name="id" class="form-container__select">
-<!--                        <option>There are no users</option>-->
-                        <option>any users</option>
+                        <option th:if="${isCandidateToUgradeEmpty}" disabled selected>There are no users</option>
+                        <option th:if="${!isCandidateToUgradeEmpty}" th:each="user: ${candidateToUpgrade}" th:value="${user.id}" th:text="${user.email}"></option>
                     </select>
                 </div>
                 <div class="form-container__button-wrapper">
-                    <button type="submit" class="form-container__button">Upgrade</button>
+                    <button th:disabled="${isCandidateToUgradeEmpty}"  th:classappend="${isCandidateToUgradeEmpty? 'form-container__button_disabled': ''}" type="submit" class="form-container__button">Upgrade</button>
                 </div>
             </form>
         </div>

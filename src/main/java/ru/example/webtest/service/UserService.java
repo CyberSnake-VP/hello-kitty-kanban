@@ -27,6 +27,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void updateRole(long id, UserRole newRole) {
+        userRepository.updateRole(id, newRole);
+    }
+
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
     }
