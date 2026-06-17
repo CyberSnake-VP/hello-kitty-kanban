@@ -11,6 +11,7 @@ import ru.example.webtest.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,14 @@ public class UserService {
 
     public List<User> findAllByRoleIn(Collection<UserRole> roles) {
         return userRepository.findAllByRoleInOrderById(roles);
+    }
+
+    public void deleteById(long id) {
+        userRepository.deleteById(id);
+    }
+
+    public Optional<User> findById(long id) {
+        return userRepository.findById(id);
     }
 
     public User save(User user) {

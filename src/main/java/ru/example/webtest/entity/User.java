@@ -44,4 +44,15 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
+    // проверяем какая сейчас роль у пользователя
+    public boolean isSimpleUser() {
+        return this.role == UserRole.USER;
+    }
+    public boolean isAdmin() {
+        return this.role == UserRole.ADMIN;
+    }
+    public boolean isSuperAdmin() {
+        return this.role == UserRole.SUPER_ADMIN;
+    }
 }
